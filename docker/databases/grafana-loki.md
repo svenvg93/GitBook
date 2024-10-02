@@ -105,6 +105,7 @@ limits_config:
   ingestion_rate_mb: 50  # Adjust based on actual load
   per_stream_rate_limit: 50MB  # Adjust based on actual load
 ```
+{% endcode %}
 
 ## Start Loki
 
@@ -120,11 +121,11 @@ Loki can be integrated into Grafana to visualize log data. This can be configure
 
 ### Using the Grafana Web Interface
 
-1.	Go to Connections in the left-side menu.
-2.	Search for Loki.
-3.	Click Add new Datasource.
-4.	Enter loki as the name.
-5.	Set the URL to http://<loki-ip>:3100.
+1. Go to **Connections** in the left-side menu.
+2. Search for **Loki**.
+3. Click **Add new Datasource.**
+4. Enter **loki** as the name.
+5. Set the URL to **http://\<loki-ip>:3100**.
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 
@@ -134,8 +135,8 @@ To automate the process, add the following configuration to your `datasource.yml
 
 {% code title="datasource.yml" %}
 ```yaml
-apiVersion: 1 # Optional is this is your first datasource
-datasources: # Optional is this is your first datasource
+apiVersion: 1
+datasources:
   - name: loki
     type: loki
     access: proxy
@@ -144,10 +145,11 @@ datasources: # Optional is this is your first datasource
       timeout: 60
       maxLines: 1000
 ```
+{% endcode %}
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 
-### Restart Grafana
+#### Restart Grafana
 
 If you used provisioning to set up the datasource, restart the Grafana container:
 

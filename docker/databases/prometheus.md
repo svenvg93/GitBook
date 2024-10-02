@@ -93,11 +93,11 @@ Prometheus can be integrated into Grafana to visualize collected data. You can s
 
 ### Using the Grafana Web Interface
 
-1. Go to Connections in the left-side menu.
-2. Search for Prometheus.
-3. Click Add new Datasource.
-4. Enter prometheus as the name.
-5. Set the URL to http://:9090.
+1. Go to **Connections** in the left-side menu.
+2. Search for **Prometheus**.
+3. Click **Add new Datasource.**
+4. Enter **prometheus** as the name.
+5. Set the URL to **http://\<prometheus-ip>:9090**.
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
