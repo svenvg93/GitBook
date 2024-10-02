@@ -1,6 +1,6 @@
 # Traefik
 
-Traefik is the leading open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic and full-featured. This guide offers a detailed tutorial on setting up Traefik with Let's Encrypt, covering configuration, SSL certificate automation, and secure deployment to ensure encrypted traffic and seamless, scalable web services.
+Traefik is a powerful open-source reverse proxy and load balancer for HTTP and TCP-based applications. This guide provides a detailed tutorial on setting up Traefik with Let’s Encrypt, covering configuration, SSL certificate automation, and secure deployment for encrypted traffic and scalable web services.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -35,23 +35,23 @@ Create a API Key on the link above.
 
 Save this API Key. We will need this later on.
 
-## Directories
+## Create Directories
 
-Create a **treafik** folder, which will hold the needed files.
+Create a `treafik` folder to store the configuration files:
 
 ```shell
 mkdir treafik
 cd treafik
 ```
 
-## Docker
+## Docker Compose Setup
 
 Make the docker compose file containing all information to start the container.
 
 ```yaml
 services:
   traefik:
-    image: traefik:v3.1.2
+    image: traefik
     container_name: traefik
     restart: unless-stopped
     security_opt:
@@ -82,7 +82,7 @@ networks:
 
 ### Environment File
 
-Create a `.env` file. In this `.env` file we will place the Cloudflare API Key and e-mail address.
+Create a `.env` file in the same directory to store your Cloudflare API key and email:
 
 ```title=".env"
 CF_API_EMAIL= <Your cloudflare email>
@@ -91,7 +91,7 @@ CF_DNS_API_TOKEN= <Your API Token>
 
 ## Configuration
 
-Create Traefik configuration file
+Create a `traefik.yml` configuration file with the following content:
 
 ```yaml
 api:
@@ -127,9 +127,11 @@ certificatesResolvers:
         delayBeforeCheck: 10 # Optional to wait x second before checking with the DNS Server
 ```
 
-Change `youremail@email.com` too your mail address. It will be used for the registration of the certificates. Lets Encrypt will sent notifications if something is wrong it them.
+> Replace youremail@email.com with your email address for certificate notifications.
 
-Start Traefik
+## Start Traefik
+
+Start the Traefik container with the following command
 
 ```shell
 docker compose up -d
@@ -137,7 +139,7 @@ docker compose up -d
 
 ## Adding a Service
 
-Add the following labels to every `docker-compose.yml` you want to expose with Traefik
+To expose a service through Traefik, add the following labels to the `docker-compose.yml` of that service:
 
 ```yaml
 labels:
@@ -152,13 +154,13 @@ labels:
 
 ## Monitoring
 
-Traefik can expose metrics about the EntryPoints, Routers and Service etc. We will use Prometheus to scrape the metrics and Loki to store the log files. Grafana will display these metrics and logs.
+Traefik can expose metrics about EntryPoints, Routers, and Services. We’ll use Prometheus to scrape metrics and Loki to store logs, with Grafana for visualization.
 
 ### Metrics
 
 #### Traefik Configuration
 
-Add the **metrics** sections to your existing `traefik.yml`
+Add the following metrics section to your `traefik.yml`:
 
 ```yaml
 metrics:
@@ -168,11 +170,11 @@ metrics:
     addServicesLabels: true
 ```
 
-By default Traefik will use the EntryPoint `traefik` to expose the metrics. It can be accessed on `:8080/metrics`
+Metrics can be accessed at `:8080/metrics`.
 
 #### Prometheus Configuration
 
-Add the below to your existing `prometheus.yml`.
+Add the following to your existing `prometheus.yml`:
 
 ```yaml
 scrape_configs: # Optional when its the first scrape job
@@ -181,20 +183,35 @@ scrape_configs: # Optional when its the first scrape job
     static_configs:
       - targets: ['<traefik>:8080']
 ```
-
 > Replace `<traefik>` with the IP Address of your Traefik server.
 
-#### Grafana Dashboard
+Restart Prometheus to apply the changes:
 
-You can import this [Dashboard](https://github.com/svenvg93/Grafana-Dashboard/tree/master/traefik) to get started.
+```bash
+docker restart prometheus
+```
+
+## Grafana Dashboard
+
+You can import an existing Traefik Grafana dashboard to quickly start visualizing your container metrics.
+
+### Download the Dashboard
+
+You can download the dashboard JSON file from this [GitHub repository](https://github.com/svenvg93/Grafana-Dashboard/tree/master/traefik).
+
+### Import the Dashboard into Grafana
+
+1. Open your Grafana instance and go to Dashboards > Import.
+2. Upload the downloaded JSON file.
+3. Choose the correct Prometheus datasource.
 
 ### Logging
 
-For the Logging you can either use Promtail or Grafana Alloy to grab the log file to be sent to Grafana Loki.
+You can use either Promtail or Grafana Alloy to send log files to Grafana Loki.
 
-#### Traefik Configuration
+#### Update Traefik Logging Configuration
 
-Add the **accesslog** and **log** sections to your existing `traefik.yml`
+Add the following accesslog and log sections to your `traefik.yml`:
 
 ```yaml
 accessLog:
@@ -210,16 +227,14 @@ log:
   format: json
 ```
 
-Traefik will timestamp each log line in UTC time by default. To make sure the logs will be with our local timezone we drop the `StartUTC`.
-
-add a volume to the Traefik `docker-compose.yml` to mount the right directory in the container.
+Add a volume to your `docker-compose.yml` to mount the log directory:
 
 ```yaml
 volumes:
   - /var/log/treafik:/log
 ```
 
-Re-create the Traefik container to add the new volumes.
+Re-create the Traefik container to apply the new volumes:
 
 ```shell
 docker compose up -d --force-recreate
@@ -227,7 +242,7 @@ docker compose up -d --force-recreate
 
 #### Grafana Alloy Configuration
 
-Add the below to your existing `config.alloy`
+Add the following to your existing config.alloy:
 
 ```yaml
 loki.source.file "traefik" {
@@ -241,9 +256,16 @@ loki.source.file "traefik" {
 
 Adjust `forward_to` according to your configuration.
 
+Restart Alloy to apply configuration.
+
+```
+docker restart alloy
+```
+
+
 #### Promtail Configuration
 
-Add the below to your existing `promtail-config.yaml`
+Add the following to your existing `promtail-config.yaml`:
 
 ```yaml
 scrape_configs: # Optional when its the first scrape job

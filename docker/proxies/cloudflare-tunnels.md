@@ -139,7 +139,7 @@ docker restart prometheus
 
 ## Grafana Dashboard
 
-You can import an existing cAdvisor Grafana dashboard to quickly start visualizing your container metrics.
+You can import an existing Cloudflare Tunnel Grafana dashboard to quickly start visualizing your container metrics.
 
 ### Download the Dashboard
 
