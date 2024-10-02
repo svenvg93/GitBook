@@ -2,9 +2,18 @@
 
 Learn how to set up your MikroTik router covering initial configuration, secure network setup. Master your MikroTik router with this all-in-one guide! From initial setup to securing your network and turbocharging performance.
 
-??? tip "Prerequisites" \* Console access to the MikroTik \* No Configuration on the Mikrotik
+<details>
 
-!!! info In this configuration we use **ether1** as the link to the internet.
+<summary>Prerequisites</summary>
+
+* Console access to the MikroTik&#x20;
+* No Configuration on the Mikrotik
+
+</details>
+
+{% hint style="info" %}
+In this configuration we use **ether1** as the link to the internet.
+{% endhint %}
 
 ## Basic Configuration
 
@@ -81,9 +90,21 @@ set sip disabled=yes
 
 Set up the necessary WAN interface to obtain an IP address from your ISP.
 
-\=== "DHCP with VLAN" `bash /interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> /ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes /interface list add name=WAN /interface list member add interface=internet list=WAN`
+{% tabs %}
+{% tab title="DHCP with VLAN" %}
 
-\=== "DHCP" `bash /interface ethernet set ether1 name=internet /ip dhcp-client add interface=internet add-default-route=yes disabled=no use-peer-ntp=no /interface list add name=WAN /interface list member add interface=internet list=WAN`
+{% endtab %}
+
+{% tab title="DHCP" %}
+
+{% endtab %}
+{% endtabs %}
+
+
+
+\=== "" `bash /interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> /ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes /interface list add name=WAN /interface list member add interface=internet list=WAN`
+
+\=== "" `bash /interface ethernet set ether1 name=internet /ip dhcp-client add interface=internet add-default-route=yes disabled=no use-peer-ntp=no /interface list add name=WAN /interface list member add interface=internet list=WAN`
 
 \=== "PPPoE with VLAN" `bash /interface add interface=ether1 name=vlan_int vlan-id=<Enter ISP VLAN ID> /interface pppoe-client add add-default-route=yes disabled=no interface=vlan_int name=internet use-peer-dns=yes user=<username> password=<password> /interface list add name=WAN /interface list member add interface=internet list=WAN`
 
