@@ -11,8 +11,11 @@ The step below might need adjustment to work in your environment!
 <summary>Prerequisites</summary>
 
 * Docker installed on your server
+* Cloudflare Account
+* Cloudflare registered/managed Domain Name
+* Port 80 and 443 forwared to your docker host
 
-</details> \* Cloudflare Account \* Cloudflare registered/managed Domain Name \* Port 80 and 443 forwared to your docker host
+</details>
 
 ## Cloudflare API Key
 
