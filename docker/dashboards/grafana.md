@@ -60,11 +60,11 @@ Start the Grafana container using the following command:
 ```shellell
 docker compose up -d
 ```
+
 Access Grafana at `http://<Host IP>:3000`, and log in using the default credentials:
 
-	•	Username: admin
-	•	Password: admin
-
+* Username: admin&#x20;
+* Password: admin
 
 ### Provisioning
 
@@ -137,6 +137,6 @@ Place your dashboard JSON files in the `provisioning/dashboards` directory. Ensu
 
 If you’ve added or updated the provisioning files, restart the Grafana container to apply the changes:
 
-```
+```bash
 docker restart grafana
 ```
