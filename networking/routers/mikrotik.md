@@ -1,6 +1,6 @@
 # Mikrotik
 
-Learn how to set up your MikroTik router covering initial configuration, secure network setup. Master your MikroTik router with this all-in-one guide! From initial setup to securing your network and turbocharging performance.
+Learn how to set up your MikroTik router, covering initial configuration, secure network setup, and performance optimization. Master your MikroTik router with this all-in-one guide!
 
 <details>
 
@@ -200,7 +200,7 @@ WireGuard is a modern, simple, and fast VPN protocol that uses state-of-the-art 
 
 ### Interface
 
-Create a WireGuard interface and add it to the LAN group
+Create a WireGuard interface and add it to the LAN group.
 
 ```shell
 /interface wireguard
@@ -211,7 +211,7 @@ add interface=wireguard1 list=LAN
 
 ### IP Address
 
-Give the interface an IP Address. Make this is not in the same range as your LAN subnet
+Assign an IP address to the WireGuard interface. Ensure it is not in the same range as your LAN subnet.
 
 ```
 /ip address
@@ -220,7 +220,7 @@ add address=192.168.2.1/24 interface=wireguard1 network=192.168.2.0
 
 ### Firewall
 
-Allow the WireGuard traffic in the firewall.
+Allow WireGuard traffic in the firewall.
 
 ```shell
 /ip firewall filter
@@ -245,7 +245,7 @@ add allowed-address=192.168.2.2/32 interface=wireguard1 private-key=auto
 
 ## Port forwarding
 
-Port forwarding is a network technique that redirects incoming traffic from a specific port on a router to a designated device or service within a local network, enabling external access to internal network resources.
+Port forwarding redirects incoming traffic from a specific port on a router to a designated device or service within a local network, enabling external access to internal network resources.
 
 ```shell
 /ip firewall nat
@@ -258,7 +258,7 @@ add action=dst-nat chain=dstnat comment="<Your Comment>" dst-port=<Port to forwa
 
 ## Static DHCP
 
-Static DHCP, also known as DHCP reservation, is a network configuration where a DHCP server assigns a specific IP address to a device based on its MAC address, ensuring the device always receives the same IP address within the network.
+Static DHCP, or DHCP reservation, assigns a specific IP address to a device based on its MAC address, ensuring the device always receives the same IP address within the network.
 
 ```shell
 /ip dhcp-server lease
