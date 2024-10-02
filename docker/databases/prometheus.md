@@ -28,7 +28,7 @@ cd prometheus
 Create a docker-compose.yml file containing the configuration needed to start the Prometheus container:
 
 {% code title="docker-compose.yml" %}
-```yaml 
+```yaml
 services:
   prometheus:
     image: prom/prometheus
@@ -55,6 +55,7 @@ volumes:
       name: prometheus
 
 ```
+{% endcode %}
 
 ## Create Prometheus Configuration File
 
@@ -72,6 +73,7 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 ```
+{% endcode %}
 
 ## Start Prometheus
 
@@ -80,6 +82,7 @@ Use the following command to start the Prometheus container:
 ```shell
 docker compose up -d
 ```
+
 Once the container is running, access the Prometheus web UI at:
 
 `http://<Host IP>:9090`
@@ -90,11 +93,11 @@ Prometheus can be integrated into Grafana to visualize collected data. You can s
 
 ### WebGui
 
-1.	Go to Connections in the left-side menu.
-2.	Search for Prometheus.
-3.	Click Add new Datasource.
-4.	Enter prometheus as the name.
-5.	Set the URL to http://<prometheus-ip>:9090.
+1. Go to Connections in the left-side menu.
+2. Search for Prometheus.
+3. Click Add new Datasource.
+4. Enter prometheus as the name.
+5. Set the URL to http://:9090.
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
@@ -115,12 +118,14 @@ datasources:
     isDefault: true
     editable: false
 ```
+{% endcode %}
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
-### Restart Grafana
+#### Restart Grafana
 
 If you used provisioning to set up the datasource, restart the Grafana container:
+
 ```
 docker restart grafana
 ```
