@@ -18,7 +18,7 @@ The step below might need adjustment to work in your environment!
 
 ## Docker Compose Setup
 
-Create a `promtail` folder to store the configuration files:
+Create a promtail folder to store the configuration files:
 
 ```shell
 mkdir promtail

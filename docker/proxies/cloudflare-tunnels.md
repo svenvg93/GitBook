@@ -35,7 +35,7 @@ Now we need to create a tunnel configuration with Cloudflare.
 
 ## Create Directories
 
-Create a `cloudflared` folder to store the configuration files:
+Create a cloudflared folder to store the configuration files:
 
 ```shell
 mkdir cloudflared
@@ -85,10 +85,10 @@ If successful, you will see your tunnel connected within a few seconds. Click **
 
 You don’t need to add a public hostname for Cloudflared itself.
 
-1. Fill in the following fields:&#x20;
-   1. Subdomain: e.g., test&#x20;
-   2. Domain: Select your domain name from the list.&#x20;
-   3. Type: Select HTTP.&#x20;
+1. Fill in the following fields:
+   1. Subdomain: e.g., test
+   2. Domain: Select your domain name from the list.
+   3. Type: Select HTTP.
    4. URL: If the application is on the same Docker network, use the container name. Otherwise, use the IP address and specify the port if it is not the default HTTP port (e.g., :).
 2. Click Save Tunnel.
 
@@ -200,14 +200,10 @@ loki.source.file "cloudflared" {
 ```
 {% endcode %}
 
-> * Adjust `forward_to` according to your configuration.&#x20;
+> * Adjust `forward_to` according to your configuration.
 > * Make sure that the needed volumes are mounted inside your Alloy container.
 
-Restart Alloy to apply the changes:
-
-```bash
-docker restart alloy
-```
+Restart Alloy to apply the changes
 
 #### Configure Promtail for Logging
 
@@ -228,8 +224,4 @@ scrape_configs: # Optional when its the first scrape job
 
 > Make sure that the needed volumes are mounted inside your Promtail container.
 
-Restart Promtail to apply the changes:
-
-```bash
-docker restart promtail
-```
+Restart Promtail to apply the changes

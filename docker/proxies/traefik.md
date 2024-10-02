@@ -37,7 +37,7 @@ Save this API Key. We will need this later on.
 
 ## Create Directories
 
-Create a `treafik` folder to store the configuration files:
+Create a treafik folder to store the configuration files:
 
 ```shell
 mkdir treafik
@@ -48,6 +48,7 @@ cd treafik
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   traefik:
@@ -79,6 +80,7 @@ networks:
   traefik:
     name: traefik
 ```
+{% endcode %}
 
 ### Environment File
 
@@ -93,6 +95,7 @@ CF_DNS_API_TOKEN= <Your API Token>
 
 Create a `traefik.yml` configuration file with the following content:
 
+{% code title="traefik.yml" %}
 ```yaml
 api:
   dashboard: true # Optional can be disabled
@@ -126,6 +129,7 @@ certificatesResolvers:
         provider: cloudflare
         delayBeforeCheck: 10 # Optional to wait x second before checking with the DNS Server
 ```
+{% endcode %}
 
 > Replace youremail@email.com with your email address for certificate notifications.
 
@@ -183,13 +187,10 @@ scrape_configs: # Optional when its the first scrape job
     static_configs:
       - targets: ['<traefik>:8080']
 ```
+
 > Replace `<traefik>` with the IP Address of your Traefik server.
 
 Restart Prometheus to apply the changes:
-
-```bash
-docker restart prometheus
-```
 
 ## Grafana Dashboard
 
@@ -258,11 +259,6 @@ Adjust `forward_to` according to your configuration.
 
 Restart Alloy to apply configuration.
 
-```
-docker restart alloy
-```
-
-
 #### Promtail Configuration
 
 Add the following to your existing `promtail-config.yaml`:
@@ -279,7 +275,3 @@ scrape_configs: # Optional when its the first scrape job
 ```
 
 Restart Promtail to apply configuration.
-
-```
-docker restart promtail
-```

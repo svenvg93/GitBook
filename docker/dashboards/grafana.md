@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-Create a `grafana` folder to store the configuration files:
+Create a grafana folder to store the configuration files:
 
 ```shell
 mkdir grafana

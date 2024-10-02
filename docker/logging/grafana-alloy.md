@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-Create a `alloy` folder to store the configuration files:
+Create a alloy folder to store the configuration files:
 
 ```shell
 mkdir alloy

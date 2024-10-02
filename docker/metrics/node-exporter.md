@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-Create a `node-exporter` folder to store the configuration files:
+Create a node-exporter folder to store the configuration files:
 
 ```shell
 mkdir node-exporter
@@ -82,6 +82,8 @@ scrape_configs: # Optional is this is your first config
 {% endcode %}
 
 > Replace with the IP address of your server and with the hostname of the monitored server.
+
+Restart Prometheus to apply the changes.
 
 ## Grafana Dashboard
 

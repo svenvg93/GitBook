@@ -80,6 +80,8 @@ scrape_configs: # Optional is this is your first config
 
 > Replace `<cadvisor>` with the IP Address of your cAdvisor instance.
 
+Restart Prometheus to apply the changes.
+
 ## Grafana Dashboard
 
 You can import an existing cAdvisor Grafana dashboard to quickly start visualizing your container metrics.

@@ -124,7 +124,3 @@ datasources:
 ### Restart Grafana
 
 If you used provisioning to set up the datasource, restart the Grafana container:
-
-```
-docker restart grafana
-```

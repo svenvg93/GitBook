@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-Create a `loki` folder to store the configuration files:
+Create a loki folder to store the configuration files:
 
 ```shell
 mkdir loki
@@ -151,8 +151,4 @@ datasources:
 
 #### Restart Grafana
 
-If you used provisioning to set up the datasource, restart the Grafana container:
-
-```
-docker restart grafana
-```
+If you used provisioning to set up the datasource, restart the Grafana container
