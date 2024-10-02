@@ -49,7 +49,6 @@ services:
 volumes:
     grafana:
       name: grafana
-
 ```
 {% endcode %}
 

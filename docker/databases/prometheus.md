@@ -53,7 +53,6 @@ services:
 volumes:
     prometheus:
       name: prometheus
-
 ```
 {% endcode %}
 
