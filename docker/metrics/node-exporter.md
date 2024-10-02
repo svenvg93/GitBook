@@ -1,6 +1,6 @@
 # Node Exporter
 
-Node Exporter is a Prometheus exporter for collecting hardware and OS metrics exposed by *NIX kernels. This guide provides step-by-step instructions for setting up Node Exporter, including installation, configuration, and integration with Prometheus for detailed monitoring of Linux system metrics.
+Node Exporter is a Prometheus exporter for collecting hardware and OS metrics exposed by \*NIX kernels. This guide provides step-by-step instructions for setting up Node Exporter, including installation, configuration, and integration with Prometheus for detailed monitoring of Linux system metrics.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -27,6 +27,7 @@ cd node-exporter
 
 Create a `docker-compose.yml` file in the node-exporter directory with the following content:
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   node-exporter:
@@ -44,6 +45,8 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
 ```
+{% endcode %}
+
 > We use the host network for Node Exporter; otherwise, it cannot access the network information from the host's network interfaces.
 
 ## Start Node Expoter
@@ -62,6 +65,7 @@ A Prometheus scrape config for Node Exporter is needed to collect real-time syst
 
 Add the below to your existing `prometheus.yml`
 
+{% code title="prometheus.yml" %}
 ```yaml
 scrape_configs: # Optional is this is your first config
    - job_name: 'nodeexporter'
@@ -75,7 +79,9 @@ scrape_configs: # Optional is this is your first config
         target_label: "instance"
         action: "replace"
 ```
-> Replace <Server IP Address> with the IP address of your server and <hostname> with the hostname of the monitored server.
+{% endcode %}
+
+> Replace with the IP address of your server and with the hostname of the monitored server.
 
 ## Grafana Dashboard
 
@@ -87,8 +93,8 @@ You can download the dashboard JSON file from this [GitHub repository](https://g
 
 ### Import the Dashboard into Grafana
 
-1.	Open your Grafana instance and go to Dashboards > Import.
-2.	Upload the downloaded JSON file.
-3.	Choose the correct Prometheus datasource.
+1. Open your Grafana instance and go to Dashboards > Import.
+2. Upload the downloaded JSON file.
+3. Choose the correct Prometheus datasource.
 
 Once imported, you can begin monitoring the real-time resource usage of your systems using Grafana.

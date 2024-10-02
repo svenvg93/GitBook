@@ -1,6 +1,6 @@
 # Grafana Promtail
 
-Warning: Grafana Promtail is deprecated and has been replaced with Grafana Alloy. Consider migrating to Alloy for future-proofing your setup.
+**Warning**: Grafana Promtail is deprecated and has been replaced with Grafana Alloy. Consider migrating to Alloy for future-proofing your setup.
 
 This guide provides a comprehensive tutorial on setting up Promtail, covering installation, configuration, and integration with Loki for efficient log collection and forwarding.
 
@@ -29,6 +29,7 @@ cd promtail
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   promtail:
@@ -48,11 +49,13 @@ networks:
   monitoring:
     name: monitoring
 ```
+{% endcode %}
 
 ## Create the Promtail Configuration File
 
 Create a configuration file named `promtail-config.yaml` with the following content. This configuration will capture the system’s auth and syslog logs and send them to Grafana Loki.
 
+{% code title="promtail-config.yaml" %}
 ```yaml
 server:
   http_listen_port: 9080
@@ -82,6 +85,7 @@ scrape_configs:
       __path__: /var/log/syslog 
 
 ```
+{% endcode %}
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 

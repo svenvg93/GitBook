@@ -27,6 +27,7 @@ cd cadvisor
 
 Create a `docker-compose.yml` file in the cadvisor directory with the following content:
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   cadvisor:
@@ -51,6 +52,7 @@ services:
       - /dev/kmsg:/dev/kmsg
     privileged: true
 ```
+{% endcode %}
 
 ## Start cAdvisor
 
@@ -66,6 +68,7 @@ To monitor real-time container metrics with Prometheus, update your existing `pr
 
 Append the following configuration to your `prometheus.yml` file:
 
+{% code title="prometheus.yml" %}
 ```yaml
 scrape_configs: # Optional is this is your first config
   - job_name: 'cadvisor'
@@ -73,6 +76,7 @@ scrape_configs: # Optional is this is your first config
     static_configs:
       - targets: ['<cadvisor>:8080']
 ```
+{% endcode %}
 
 > Replace `<cadvisor>` with the IP Address of your cAdvisor instance.
 
@@ -86,8 +90,8 @@ You can download the dashboard JSON file from this [GitHub repository](https://g
 
 ### Import the Dashboard into Grafana
 
-1.	Open your Grafana instance and go to Dashboards > Import.
-2.	Upload the downloaded JSON file.
-3.	Choose the correct Prometheus datasource.
+1. Open your Grafana instance and go to Dashboards > Import.
+2. Upload the downloaded JSON file.
+3. Choose the correct Prometheus datasource.
 
 Once imported, you can begin monitoring the real-time resource usage of your containers using Grafana.

@@ -27,6 +27,7 @@ cd alloy
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   alloy:
@@ -46,11 +47,13 @@ networks:
   monitoring:
     name: monitoring
 ```
+{% endcode %}
 
 ## Create the Alloy Configuration File
 
 Create a configuration file named `config.alloy` with the following content. This configuration will capture the system’s auth and syslog logging, sending it to Grafana Loki.
 
+{% code title="config.alloy" %}
 ```yaml
 loki.write "default" {
   endpoint {
@@ -79,6 +82,7 @@ loki.source.file "authlog" {
 }
 
 ```
+{% endcode %}
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 
@@ -104,6 +108,7 @@ volumes:
 ```
 
 ### Restart the Docker Container
+
 Restart the container with the updated configuration:
 
 ```shell
@@ -115,16 +120,19 @@ docker compose up -d --force-recreate
 Log in to the Alloy container and run the migration command to create an Alloy-accepted configuration file based on your Promtail configuration.
 
 #### Container Login
+
 ```shell
 docker exec -it alloy /bin/bash
 ```
 
 #### Run Migration Command
+
 ```shell
 alloy convert --source-format=promtail --output=config.alloy promtail-config.yaml
 ```
 
 #### Copy the Configuration
+
 While inside the Docker container, display the content of the new config file:
 
 ```shell
