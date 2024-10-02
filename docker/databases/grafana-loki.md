@@ -1,6 +1,6 @@
 # Grafana Loki
 
-Grafana Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus. This guide provides a detailed walkthrough for setting up Loki, covering installation, configuration, and integration with Grafana to streamline log aggregation and visualization.
+Grafana Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus. This guide provides detailed instructions for setting up Loki, covering installation, configuration, and integration with Grafana to streamline log aggregation and visualization.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -14,18 +14,18 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
-Create a `loki` folder, which will hold the needed files.
+Create a `loki` folder to store the configuration files:
 
 ```shell
 mkdir loki
 cd loki
 ```
 
-## Docker
+## Docker Compose Setup
 
-Make the docker compose file containing all information to start the container.
+Create a `docker-compose.yml` file in the loki directory with the following content:
 
 {% code title="docker-compose.yml" %}
 ```yaml
@@ -50,10 +50,11 @@ volumes:
 ```
 {% endcode %}
 
-## Configuration
+## Create the Loki Configuration File
 
-Create the Loki configuration file to define how Loki should handle log ingestion and storage. This step is essential for ensuring that Loki collects, organizes, and retains your logs effectively.
+Create a file named loki-config.yaml to define how Loki handles log ingestion and storage:
 
+{% code title="loki-config.yaml" %}
 ```yaml
 auth_enabled: false
 
@@ -107,30 +108,31 @@ limits_config:
 
 ## Start Loki
 
+Start the Loki container using the following command:
+
 ```shell
 docker compose up -d
 ```
 
-## **Grafana Datasource**
+## Adding Loki as a Grafana Datasource
 
-You can to add Loki as a data soure to Grafana to see the data collected. This can be done via the Grafana WebGui or via Provisioning.
+Loki can be integrated into Grafana to visualize log data. This can be configured through the Grafana web interface or using provisioning.
 
-### WebGui
+### Using the Grafana Web Interface
 
-1. Click **Connections** in the left-side menu.
-2. Search for **Loki**
-3. Click **Add new Datasource**
-4. Enter the name **loki**
-5. Fill in the URL `http://<loki-ip>:3100`
+1.	Go to Connections in the left-side menu.
+2.	Search for Loki.
+3.	Click Add new Datasource.
+4.	Enter loki as the name.
+5.	Set the URL to http://<loki-ip>:3100.
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 
-### Provisioning
+### Using Grafana Provisioning
 
-Want to set up Grafana Provisioning check here.
+To automate the process, add the following configuration to your `datasource.yml` file in Grafana’s provisioning directory:
 
-Add the following to your `datasource.yml` for Grafana.
-
+{% code title="datasource.yml" %}
 ```yaml
 apiVersion: 1 # Optional is this is your first datasource
 datasources: # Optional is this is your first datasource
@@ -145,7 +147,9 @@ datasources: # Optional is this is your first datasource
 
 > Replace `<loki-ip>` with the IP Address of your Loki server.
 
-Restart Grafana
+### Restart Grafana
+
+If you used provisioning to set up the datasource, restart the Grafana container:
 
 ```
 docker restart grafana

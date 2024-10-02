@@ -14,7 +14,7 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
 Create a `grafana` folder, which will hold the needed files.
 

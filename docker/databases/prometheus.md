@@ -14,7 +14,7 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
 First, create a prometheus folder to store the necessary configuration files:
 
@@ -91,7 +91,7 @@ Once the container is running, access the Prometheus web UI at:
 
 Prometheus can be integrated into Grafana to visualize collected data. You can set up the Prometheus datasource through the Grafana web interface or through provisioning.
 
-### WebGui
+### Using the Grafana Web Interface
 
 1. Go to Connections in the left-side menu.
 2. Search for Prometheus.
@@ -122,7 +122,7 @@ datasources:
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
-#### Restart Grafana
+### Restart Grafana
 
 If you used provisioning to set up the datasource, restart the Grafana container:
 
