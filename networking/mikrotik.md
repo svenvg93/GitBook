@@ -99,8 +99,7 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN
 ```
 
-> Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
-
+> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
 {% endtab %}
 
 {% tab title="DHCP" %}
@@ -120,10 +119,9 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
-> Change `<username>` to the needed username for your PPPoE Connection
-> Change `<password>` to the needed password for your PPPoE Connection
-
+> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP&#x20;
+> * Change `<username>` to the needed username for your PPPoE Connection&#x20;
+> * Change `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
 
 {% tab title="PPPoE" %}
@@ -133,9 +131,8 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> Change `<username>` to the needed username for your PPPoE Connection
-> Change `<password>` to the needed password for your PPPoE Connection
-
+> * Change `<username>` to the needed username for your PPPoE Connection
+> * Change `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
 
 {% tab title="Static IP" %}
@@ -148,10 +145,9 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> Change `<Your IP Address>` to IP Address given by your ISP
-> Change `<Your IP Gateway>` to IP Gateway given by your ISP
-> Change `<Your DNS Server> ` to DNS Servers given by your ISP or any Public DNS you want to use.
-
+> * Change `<Your IP Address>` to IP Address given by your ISP&#x20;
+> * Change `<Your IP Gateway>` to IP Gateway given by your ISP&#x20;
+> * Change `<Your DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
 {% endtab %}
 {% endtabs %}
 
@@ -231,8 +227,6 @@ add action=accept chain=forward comment="Allow WireGuard to LAN" in-interface=wi
 Make sure the rules are before the `DROP` rule of the belonging chain.
 {% endhint %}
 
-
-
 ### Client Configuration
 
 Create a client in order to connect to the WireGuard tunnel
@@ -243,8 +237,6 @@ add allowed-address=192.168.2.2/32 interface=wireguard1 private-key=auto
 ```
 
 > Ensure that each client has a unique `allowed-address`.
-
-
 
 ## Port forwarding
 
