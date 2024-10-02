@@ -1,6 +1,6 @@
 # cAdvisor
 
-cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. Discover how to set up and use cAdvisor with this guide, featuring step-by-step instructions on installation, configuration, and monitoring container performance metrics for optimized Docker environments.
+cAdvisor (Container Advisor) helps container users gain insight into resource usage and performance characteristics of their running containers. This guide provides step-by-step instructions for installing, configuring, and monitoring container performance metrics using cAdvisor, ideal for optimizing Docker environments.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -14,18 +14,18 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
-Create a **cadvisor** folder, which will hold the needed files.
+Create a `cadvisor` folder to store the configuration files:
 
 ```shell
 mkdir cadvisor
 cd cadvisor
 ```
 
-## Docker
+## Docker Compose Setup
 
-Make the docker compose file containing all information to start the container.
+Create a `docker-compose.yml` file in the cadvisor directory with the following content:
 
 ```yaml
 services:
@@ -54,15 +54,17 @@ services:
 
 ## Start cAdvisor
 
+Start the cAdvisor container using Docker Compose:
+
 ```shell
 docker compose up -d
 ```
 
 ## Prometheus Scrape configuration
 
-A Prometheus scrape config for cAdvisor is needed to collect real-time container metrics, essential for monitoring resource usage and optimizing performance in containerized environments.
+To monitor real-time container metrics with Prometheus, update your existing `prometheus.yml` configuration file to include cAdvisor.
 
-Add the below to your existing `prometheus.yml`
+Append the following configuration to your `prometheus.yml` file:
 
 ```yaml
 scrape_configs: # Optional is this is your first config
@@ -76,4 +78,16 @@ scrape_configs: # Optional is this is your first config
 
 ## Grafana Dashboard
 
-You can import this [Dashboard](https://github.com/svenvg93/Grafana-Dashboard/tree/master/cadvisor) to get started.
+You can import an existing cAdvisor Grafana dashboard to quickly start visualizing your container metrics.
+
+### Download the Dashboard
+
+You can download the dashboard JSON file from this [GitHub repository](https://github.com/svenvg93/Grafana-Dashboard/tree/master/cadvisor).
+
+### Import the Dashboard into Grafana
+
+1.	Open your Grafana instance and go to Dashboards > Import.
+2.	Upload the downloaded JSON file.
+3.	Choose the correct Prometheus datasource.
+
+Once imported, you can begin monitoring the real-time resource usage of your containers using Grafana.

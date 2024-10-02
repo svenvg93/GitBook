@@ -14,16 +14,16 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
-Create a **alloy** folder
+Create a `alloy` folder to store the configuration files:
 
 ```shell
 mkdir alloy
 cd alloy
 ```
 
-## Docker
+## Docker Compose Setup
 
 Make the docker compose file containing all information to start the container.
 
@@ -47,9 +47,9 @@ networks:
     name: monitoring
 ```
 
-## Configuration
+## Create the Alloy Configuration File
 
-Create Alloy configuration file. This configuration will grab the systems auth & syslog logging. And sent it to Grafana Loki.
+Create a configuration file named `config.alloy` with the following content. This configuration will capture the system’s auth and syslog logging, sending it to Grafana Loki.
 
 ```yaml
 loki.write "default" {
@@ -84,54 +84,58 @@ loki.source.file "authlog" {
 
 ### Start Alloy
 
+Start the Alloy container using Docker Compose:
+
 ```shell
 docker compose up -d
 ```
 
 ## Migrate from Promtail
 
-Alloy replaces Grafana Promtail to allow for a smooth migration Alloy has a built in migration tool which will convert your promtail configuration to a Alloy accepted format.
+Alloy replaces Grafana Promtail, providing a smooth migration path. Alloy includes a built-in migration tool to convert your Promtail configuration to a format accepted by Alloy.
 
-### Docker Volumes
+### Add Docker Volumes
 
-Add the following to your `docker-compose.yml`
+Update your `docker-compose.yml` to include the following volume for your Promtail configuration:
 
 ```yaml
 volumes:
   - /path/to/promtail-config.yaml:/promtail-config.yaml:r0
 ```
 
-Restart the docker container
+### Restart the Docker Container
+Restart the container with the updated configuration:
 
 ```shell
 docker compose up -d --force-recreate
 ```
 
-### Migration Command
+### Run the Migration Command
 
-Now we need to login to the container and run the command below to create a Alloy accepted config file based of your promtail configuration.
+Log in to the Alloy container and run the migration command to create an Alloy-accepted configuration file based on your Promtail configuration.
 
-Container Login
-
+#### Container Login
 ```shell
 docker exec -it alloy /bin/bash
 ```
 
+#### Run Migration Command
 ```shell
 alloy convert --source-format=promtail --output=config.alloy promtail-config.yaml
 ```
 
-As we are inside the docker container we need to grab the content of the config file and copy it to the config file we created earlier.
+#### Copy the Configuration
+While inside the Docker container, display the content of the new config file:
 
 ```shell
 cat config.alloy
 ```
 
-Copy the content and past it in your existing `config.alloy` configuration file.
+Copy the content and paste it into your existing `config.alloy` configuration file. Exit the container by typing exit.
 
-Leave the container by the **exit** command.
+Clean Up and Recreate the Container
 
-In the `docker-compose.yml` remove the volume for the `promtail-config.yaml` and recreate the container.
+Remove the volume for `promtail-config.yaml` from `docker-compose.yml` and recreate the container:
 
 ```shell
 docker compose up -d --force-recreate

@@ -1,6 +1,6 @@
 # Node Exporter
 
-Prometheus exporter for hardware and OS metrics exposed by \*NIX kernels. This guide provides step-by-step instructions on setting up Node Exporter, covering installation, configuration, and integration with Prometheus for detailed monitoring of Linux system metrics.
+Node Exporter is a Prometheus exporter for collecting hardware and OS metrics exposed by *NIX kernels. This guide provides step-by-step instructions for setting up Node Exporter, including installation, configuration, and integration with Prometheus for detailed monitoring of Linux system metrics.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -14,18 +14,18 @@ The step below might need adjustment to work in your environment!
 
 </details>
 
-## Directories
+## Create Directories
 
-Create a **node-exporter** folder, which will hold the needed files.
+Create a `node-exporter` folder to store the configuration files:
 
 ```shell
 mkdir node-exporter
 cd node-exporter
 ```
 
-## Docker
+## Docker Compose Setup
 
-Make the docker compose file containing all information to start the container.
+Create a `docker-compose.yml` file in the node-exporter directory with the following content:
 
 ```yaml
 services:
@@ -44,10 +44,13 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
 ```
-
-We use the host network for Node Exporter; otherwise, it cannot access the network information from the host's network interfaces.
+> We use the host network for Node Exporter; otherwise, it cannot access the network information from the host's network interfaces.
 
 ## Start Node Expoter
+
+To collect real-time system metrics from Node Exporter, update your existing `prometheus.yml` configuration file.
+
+Append the following configuration to your `prometheus.yml` file:
 
 ```shell
 docker compose up -d
@@ -72,9 +75,20 @@ scrape_configs: # Optional is this is your first config
         target_label: "instance"
         action: "replace"
 ```
-
-> \* Replace `<Server IP Address>` with the IP Address of your server. \* Replace `<hostname>` with the hostname of the server monitored
+> Replace <Server IP Address> with the IP address of your server and <hostname> with the hostname of the monitored server.
 
 ## Grafana Dashboard
 
-You can import this [Dashboard](https://github.com/svenvg93/Grafana-Dashboard/tree/master/node\_expoter) to get started.
+You can import an existing Node Exporter Grafana dashboard to quickly start visualizing your container metrics.
+
+### Download the Dashboard
+
+You can download the dashboard JSON file from this [GitHub repository](https://github.com/svenvg93/Grafana-Dashboard/tree/master/node\_expoter).
+
+### Import the Dashboard into Grafana
+
+1.	Open your Grafana instance and go to Dashboards > Import.
+2.	Upload the downloaded JSON file.
+3.	Choose the correct Prometheus datasource.
+
+Once imported, you can begin monitoring the real-time resource usage of your systems using Grafana.
