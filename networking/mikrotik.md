@@ -172,6 +172,7 @@ add address=time.cloudflare.com
 /system clock
 set time-zone-name=<Your Timezone>
 ```
+
 > Replace `<Your Timezone>` this to your timezone
 
 ### System
@@ -189,6 +190,7 @@ set name=<Your hostname>
 /user add name=<Username> password=<Password> group=full
 /user disable admin
 ```
+
 > * Replace `<Username>` to your new username
 > * Replace `<Password>` to your new password
 
@@ -247,9 +249,11 @@ Port forwarding is a network technique that redirects incoming traffic from a sp
 
 ```shell
 /ip firewall nat
-add action=dst-nat chain=dstnat comment="Your Comment" dst-port=<Port to forward> in-interface-list=WAN protocol=tcp to-addresses=<IP To Forward to>
+add action=dst-nat chain=dstnat comment="<Your Comment>" dst-port=<Port to forward> in-interface-list=WAN protocol=tcp to-addresses=<IP To Forward to>
 ```
-> * Replace `<Port to forward>` to the port you want to forward traffic to.
+
+> * Replace `<Your Comment>` with your comment like _To Webserver_
+> * Replace `<Port to forward>` to the port you want to forward traffic.
 > * Replace `<IP To Forward to>` to the local IP Address you want to forward the traffic to.
 
 ## Static DHCP
@@ -258,8 +262,8 @@ Static DHCP, also known as DHCP reservation, is a network configuration where a 
 
 ```shell
 /ip dhcp-server lease
-add address=<IP Adress> mac-address=<Client Mac Address> server=dhcp1
+add address=<IP Address> mac-address=<Client Mac Address> server=dhcp1
 ```
-> * Replace <IP Address> with the IP address you want to reserve.
-> * Replace <Client MAC Address> with the MAC address you want to assign to this IP address.
 
+> * Replace with the IP address you want to reserve.
+> * Replace with the MAC address you want to assign to this IP address.
