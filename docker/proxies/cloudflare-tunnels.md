@@ -1,6 +1,6 @@
 # Cloudflare Tunnels
 
-Cloudflare Tunnel is tunneling software that secures and encrypts application traffic, hiding server IP addresses and blocking direct attacks, allowing you to focus on delivering great applications. Unlock the secrets of Cloudflare Tunnel with this all-inclusive guide! Learn how to configure, encrypt traffic, and securely deploy your setup to shield web server IP addresses and create rock-solid, attack-resistant web services.
+Cloudflare Tunnel is a tunneling software that secures and encrypts application traffic, hiding server IP addresses and blocking direct attacks. This guide will help you configure and securely deploy Cloudflare Tunnel to shield web server IP addresses and create robust, attack-resistant web services.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -33,16 +33,16 @@ Now we need to create a tunnel configuration with Cloudflare.
 * Copy the command with the copy button
 * Paste this in a notepad of your liking
 
-## Directories
+## Create Directories
 
-Create a **cloudflared** folder, which will hold the needed files.
+Create a `cloudflared` folder to store the configuration files:
 
 ```shell
 mkdir cloudflared
 cd cloudflared
 ```
 
-## Docker
+## Docker Compose Setup
 
 Make the docker compose file containing all information to start the container.
 
@@ -61,61 +61,52 @@ services:
 
 ### Environment File
 
-As we don't want the token to be in the docker-compose file we create a **.**`env` file in the same directory as your `docker-compose.yml`.
-
-In this `.env` file place the following content.
+To keep the token secure, create a `.env` file in the same directory as your `docker-compose.yml`:
 
 ```yaml
 TOKEN=<Your tunnel token>
 ```
 
-Replace the `<Your tunnel token>` with the long strong of characters that it behind the `-- token` of the command we just copied from the Cloudflare website.
+> Replace <Your tunnel token> with the token obtained from the Cloudflare dashboard.
 
-Now we will start Cloudlfared by running:
+## Start Cloudflared
+
+Run the following command to start Cloudflared:
 
 ```bash
 docker compose up -d
 ```
 
-If everything is correct you will see your tunnel connected within a couple of seconds. When its conncted click **Next**.
+If successful, you will see your tunnel connected within a few seconds. Click **Next** in the Cloudflare dashboard.
 
-## Adding a Public Hostname
+## Add a Public Hostname
 
-You don't need to add a public hostname for clouflared itself.
+	1.	You don’t need to add a public hostname for Cloudflared itself.
+	2.	Fill in the following fields:
+	•	Subdomain: e.g., test
+	•	Domain: Select your domain name from the list.
+	•	Type: Select HTTP.
+	•	URL: If the application is on the same Docker network, use the container name. Otherwise, use the IP address and specify the port if it is not the default HTTP port (e.g., :<portnumber>).
+	3.	Click Save Tunnel.
 
-Fill in the follwing field:
-
-* **Subdomain** — the subdomain to use for example; **test**
-* **Domain** — pick the domain name to use form the list;
-* **Type** — Select **HTTP**
-* **URL** — If the application is on the same docker network you can use the container name. If thats not the case use the IP Address. If it does not use the default http port specifiy the ports with `:<portnumber>` behind the IP Address/Container name.
-
-As last step click **Save Tunnel.** Now the tunnel will get the configuration and you can access your service via Cloudflare.
-
-If you want to add more services through the same tunnel. Go to the **Networks** -> **Tunnels** page
-
-* Click on the Tunnel you want to add the Public Hostname to.
-* Click on **Edit**
-* Go to **Public Hostname**
-* Click on **Add a public hostname**
-* Fill in the fields **Subdomain**, **Domain**, **Type**, **URL**. Like described above.
+To add more services through the same tunnel, repeat the above steps for each service.
 
 ## Monitoring
 
-Cloudflared can expose metrics about the tunnels. We will use Prometheus to scrape the metrics and Grafana to display them.
+Cloudflared can expose metrics that can be scraped by Prometheus and displayed in Grafana.
 
 ### Metrics
 
-#### Docker Configuration
+Enable Metrics in Docker Configuration
 
-In order to enable the endpoint we need to add the environment variables below to the `docker-compose.yml`
+Add the following environment variable to your `docker-compose.yml`:
 
 ```yaml
 environment:
     TUNNEL_METRICS: 0.0.0.0:9100
 ```
 
-We will need to recreate the contianer for the environment variables to be picked up.
+Recreate the container to apply the changes:
 
 ```bash
 docker compose up -d --force-recreate
@@ -123,7 +114,7 @@ docker compose up -d --force-recreate
 
 #### Prometheus Configuration
 
-Add the below to your existing `prometheus.yml`
+Add the following to your existing `prometheus.yml`:
 
 ```yaml
 scrape_configs: # Optional when its the first scrape job
@@ -135,32 +126,42 @@ scrape_configs: # Optional when its the first scrape job
 
 > Replace `<cloudflared>` with the IP Address of your Cloudflared instance.
 
-To apply all the configuration changes we made we need to Prometheus.
+Restart Prometheus to apply the changes:
 
 ```bash
 docker restart prometheus
 ```
+## Grafana Dashboard
 
-#### Grafana Dashboard
+You can import an existing cAdvisor Grafana dashboard to quickly start visualizing your container metrics.
 
-You can import this [Dashboard](https://github.com/svenvg93/Grafana-Dashboard/tree/master/cloudflare\_tunnel) to get started.
+### Download the Dashboard
+
+You can download the dashboard JSON file from this [GitHub repository](https://github.com/svenvg93/Grafana-Dashboard/tree/master/cloudflare\_tunnel).
+
+### Import the Dashboard into Grafana
+
+1. Open your Grafana instance and go to Dashboards > Import.
+2. Upload the downloaded JSON file.
+3. Choose the correct Prometheus datasource.
+
 
 ### Logging
 
-For the Logging you can either use Promtail or Grafana Alloy to grab the log file to be sent to Grafana Loki.
+For logging, you can use either Promtail or Grafana Alloy to send log files to Grafana Loki.
 
-#### Directory
+#### Create Logging Directory
 
-Because cloudflared a rootless container we need make the directory and give it the needed rights
+Since Cloudflared runs as a rootless container, create a directory for logs:
 
 ```bash
 sudo mkdir /var/log/cloudflared
 sudo chown 65532:65532 /var/log/cloudflared
 ```
 
-#### Docker Configuration
+#### Enable Logging in Docker Configuration
 
-In order to enable the logging we need to add the environment variables below to the `docker-compose.yml`.
+Add the following environment variables to your `docker-compose.yml`:
 
 ```yaml
 environment:
@@ -168,22 +169,22 @@ environment:
       TUNNEL_LOGFILE: /log/cloudflared.log
 ```
 
-Add a volume to mount the right directory in the container.
+Add a volume to mount the log directory:
 
 ```yaml
 volumes:
   - /var/log/cloudflared:/log
 ```
 
-We will need to recreate the contianer for the environment variables to be picked up.
+Recreate the container to apply the changes:
 
 ```bash
 docker compose up -d --force-recreate
 ```
 
-#### Grafana Alloy Configuration
+#### Configure Grafana Alloy for Logging
 
-Add the below to your existing `config.alloy`.
+Add the following configuration to your existing `config.alloy`:
 
 ```bash
 loki.source.file "cloudflared" {
@@ -194,9 +195,15 @@ loki.source.file "cloudflared" {
 
 > \* Adjust `forward_to` according to your configuration. \* Make sure that the needed volumes are mounted inside your Alloy container.
 
-#### Promtail Configuration
+Restart Alloy to apply the changes:
 
-Add job to your existing `promtail-config.yaml` configuration
+```bash
+docker restart alloy
+```
+
+#### Configure Promtail for Logging
+
+Add the following job to your existing `promtail-config.yaml`:
 
 ```yaml
 scrape_configs: # Optional when its the first scrape job
@@ -211,7 +218,7 @@ scrape_configs: # Optional when its the first scrape job
 
 > Make sure that the needed volumes are mounted inside your Promtail container.
 
-Restart Promtail to apply configuration.
+Restart Promtail to apply the changes:
 
 ```bash
 docker restart promtail
