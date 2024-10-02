@@ -92,25 +92,52 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 
 {% tabs %}
 {% tab title="DHCP with VLAN" %}
-
+```bash 
+/interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> 
+/ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes 
+/interface list add name=WAN 
+/interface list member add interface=internet list=WAN
+```
 {% endtab %}
 
 {% tab title="DHCP" %}
+```bash 
+/interface ethernet set ether1 name=internet 
+/ip dhcp-client add interface=internet add-default-route=yes disabled=no use-peer-ntp=no 
+/interface list add name=WAN 
+/interface list member add interface=internet list=WAN`
+```
+{% endtab %}
 
+{% tab title="PPPoE with VLAN" %}
+```bash 
+/interface add interface=ether1 name=vlan_int vlan-id=<Enter ISP VLAN ID> 
+/interface pppoe-client add add-default-route=yes disabled=no interface=vlan_int name=internet use-peer-dns=yes user=<username> password=<password>
+/interface list add name=WAN 
+/interface list member add interface=internet list=WAN`
+```
+{% endtab %}
+
+{% tab title="PPPoE" %}
+```bash 
+/interface pppoe-client add add-default-route=yes disabled=no interface=ether1 name=internet use-peer-dns=yes user=<username> password=<password> 
+/interface list add name=WAN 
+/interface list member add interface=internet list=WAN`
+```
+{% endtab %}
+
+{% tab title="Static IP" %}
+```bash 
+/interface ethernet set ether1 name=internet 
+/ip address add address=<Your IP Address> interface=internet 
+/ip route add gateway=<Your IP Gateway> 
+/ip dns set servers=<Your DNS Server> 
+/interface list add name=WAN 
+/interface list member add interface=internet list=WAN`
+```
 {% endtab %}
 {% endtabs %}
 
-
-
-\=== "" `bash /interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> /ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes /interface list add name=WAN /interface list member add interface=internet list=WAN`
-
-\=== "" `bash /interface ethernet set ether1 name=internet /ip dhcp-client add interface=internet add-default-route=yes disabled=no use-peer-ntp=no /interface list add name=WAN /interface list member add interface=internet list=WAN`
-
-\=== "PPPoE with VLAN" `bash /interface add interface=ether1 name=vlan_int vlan-id=<Enter ISP VLAN ID> /interface pppoe-client add add-default-route=yes disabled=no interface=vlan_int name=internet use-peer-dns=yes user=<username> password=<password> /interface list add name=WAN /interface list member add interface=internet list=WAN`
-
-\=== "PPPoE" `bash /interface pppoe-client add add-default-route=yes disabled=no interface=ether1 name=internet use-peer-dns=yes user=<username> password=<password> /interface list add name=WAN /interface list member add interface=internet list=WAN`
-
-\=== "Static IP" `bash /interface ethernet set ether1 name=internet /ip address add address=<Your IP Address> interface=internet /ip route add gateway=<Your IP Gateway> /ip dns set servers=<Your DNS Server> /interface list add name=WAN /interface list member add interface=internet list=WAN`
 
 ### NAT
 
