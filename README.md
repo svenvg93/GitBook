@@ -1,6 +1,6 @@
 ---
 description: Easy Selfhosting, Homelab and Networking documentation..
-cover: .gitbook/assets/data-centers-filled-rows-servers-600nw-2502153963.jpg.webp
+cover: .gitbook/assets/HeroImage.webp
 coverY: 0
 layout:
   cover:
