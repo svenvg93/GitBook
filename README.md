@@ -1,11 +1,11 @@
 ---
 description: Easy Selfhosting, Homelab and Networking documentation..
-cover: .gitbook/assets/MSC17_dataCenter_028.jpg
+cover: .gitbook/assets/data-centers-filled-rows-servers-600nw-2502153963.jpg.webp
 coverY: 0
 layout:
   cover:
     visible: true
-    size: hero
+    size: full
   title:
     visible: true
   description:
