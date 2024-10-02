@@ -46,6 +46,7 @@ cd cloudflared
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   cloudflared:
@@ -58,6 +59,7 @@ services:
    network_mode: bridge
    command: tunnel --no-autoupdate run 
 ```
+{% endcode %}
 
 ### Environment File
 
@@ -67,7 +69,7 @@ To keep the token secure, create a `.env` file in the same directory as your `do
 TOKEN=<Your tunnel token>
 ```
 
-> Replace <Your tunnel token> with the token obtained from the Cloudflare dashboard.
+> Replace with the token obtained from the Cloudflare dashboard.
 
 ## Start Cloudflared
 
@@ -81,13 +83,14 @@ If successful, you will see your tunnel connected within a few seconds. Click **
 
 ## Add a Public Hostname
 
-	1.	You don’t need to add a public hostname for Cloudflared itself.
-	2.	Fill in the following fields:
-	•	Subdomain: e.g., test
-	•	Domain: Select your domain name from the list.
-	•	Type: Select HTTP.
-	•	URL: If the application is on the same Docker network, use the container name. Otherwise, use the IP address and specify the port if it is not the default HTTP port (e.g., :<portnumber>).
-	3.	Click Save Tunnel.
+You don’t need to add a public hostname for Cloudflared itself.
+
+1. Fill in the following fields:&#x20;
+   1. Subdomain: e.g., test&#x20;
+   2. Domain: Select your domain name from the list.&#x20;
+   3. Type: Select HTTP.&#x20;
+   4. URL: If the application is on the same Docker network, use the container name. Otherwise, use the IP address and specify the port if it is not the default HTTP port (e.g., :).
+2. Click Save Tunnel.
 
 To add more services through the same tunnel, repeat the above steps for each service.
 
@@ -116,6 +119,7 @@ docker compose up -d --force-recreate
 
 Add the following to your existing `prometheus.yml`:
 
+{% code title="prometheus.yml" %}
 ```yaml
 scrape_configs: # Optional when its the first scrape job
   - job_name: 'cloudflared'
@@ -123,6 +127,7 @@ scrape_configs: # Optional when its the first scrape job
     static_configs:
       - targets: ['<cloudflared>:9100']
 ```
+{% endcode %}
 
 > Replace `<cloudflared>` with the IP Address of your Cloudflared instance.
 
@@ -131,6 +136,7 @@ Restart Prometheus to apply the changes:
 ```bash
 docker restart prometheus
 ```
+
 ## Grafana Dashboard
 
 You can import an existing cAdvisor Grafana dashboard to quickly start visualizing your container metrics.
@@ -144,7 +150,6 @@ You can download the dashboard JSON file from this [GitHub repository](https://g
 1. Open your Grafana instance and go to Dashboards > Import.
 2. Upload the downloaded JSON file.
 3. Choose the correct Prometheus datasource.
-
 
 ### Logging
 
@@ -186,14 +191,17 @@ docker compose up -d --force-recreate
 
 Add the following configuration to your existing `config.alloy`:
 
+{% code title="config.alloy" %}
 ```bash
 loki.source.file "cloudflared" {
   targets    = [{__path__ = "/logs/cloudflared/cloudflared.log", "job" = "cloudflared"},]
   forward_to = [loki.write.default.receiver]
 }
 ```
+{% endcode %}
 
-> \* Adjust `forward_to` according to your configuration. \* Make sure that the needed volumes are mounted inside your Alloy container.
+> * Adjust `forward_to` according to your configuration.&#x20;
+> * Make sure that the needed volumes are mounted inside your Alloy container.
 
 Restart Alloy to apply the changes:
 
@@ -205,6 +213,7 @@ docker restart alloy
 
 Add the following job to your existing `promtail-config.yaml`:
 
+{% code title="promtail-config.yaml" %}
 ```yaml
 scrape_configs: # Optional when its the first scrape job
 - job_name: cloudflared
@@ -215,6 +224,7 @@ scrape_configs: # Optional when its the first scrape job
       job: cloudflared
       __path__: /logs/cloudflared/tunnel.log
 ```
+{% endcode %}
 
 > Make sure that the needed volumes are mounted inside your Promtail container.
 
