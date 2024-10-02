@@ -27,6 +27,7 @@ cd grafana
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   grafana:
@@ -50,6 +51,7 @@ volumes:
       name: grafana
 
 ```
+{% endcode %}
 
 ## Start Grafana
 
@@ -61,23 +63,24 @@ Go to `http://<Host IP>:3000` , login with `admin`/`admin`.
 
 ## Optional
 
+You can configure Grafana using environment variables, allowing you to avoid reconfiguration every time you rebuild your Grafana instance.
+
 ### Configuration
 
-You can set up Grafana using environment variables, so you won't need to reconfigure it each time you rebuild your Grafana instance.
+Add the following lines to the environment section of your `docker-compose.yml` file:
 
-Just add the following line to the `environment` section of your `docker-compose.yml`:
-
+{% code title="docker-compose.yml" %}
 ```
 GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER}
 GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
 ```
+{% endcode %}
 
-make a `.env` file that will hold the settings
+Create a `.env` file to store your settings:
 
-```title=".env"
-GF_SECURITY_ADMIN_USER=YourUsername
-GF_SECURITY_ADMIN_PASSWORD=YourPassword
-```
+<pre class="language-bash" data-title=".env"><code class="lang-bash">GF_SECURITY_ADMIN_USER=YourUsername
+<strong>GF_SECURITY_ADMIN_PASSWORD=YourPassword
+</strong></code></pre>
 
 ### Provisioning
 
@@ -97,9 +100,11 @@ mkdir -p provisioning/dashboards provisioning/datasources
 
 Add the following line in the `volume` section of your `docker-compose.yml`
 
+{% code title="docker-compose.yml" %}
 ```yaml
 - ./provisioning:/etc/grafana/provisioning
 ```
+{% endcode %}
 
 #### Datasource
 
@@ -107,6 +112,7 @@ Make a `datasource.yml` file in the **provisioning/datasources** directory.
 
 This example adds Prometheus as datasource.
 
+{% code title="datasource.yml" %}
 ```yaml
 apiVersion: 1 # Only needed at the beginning of your file
 datasources: # Only needed at the beginning of your file
@@ -119,6 +125,7 @@ datasources: # Only needed at the beginning of your file
     isDefault: true
     editable: false
 ```
+{% endcode %}
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
@@ -126,6 +133,7 @@ datasources: # Only needed at the beginning of your file
 
 Make a `dashboard.yml` file in the **provisioning/dashboards** directory.
 
+{% code title="dashboard.yml" %}
 ```yaml
 apiVersion: 1 # Only needed at the beginning of your file
 providers: # Only needed at the beginning of your file
@@ -139,6 +147,7 @@ providers: # Only needed at the beginning of your file
     options:
       path: /etc/grafana/provisioning/dashboards
 ```
+{% endcode %}
 
 Place the Dashboard **json** files in **provisioning/dashboards**.
 

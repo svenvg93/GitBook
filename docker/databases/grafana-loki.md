@@ -27,6 +27,7 @@ cd loki
 
 Make the docker compose file containing all information to start the container.
 
+{% code title="docker-compose.yml" %}
 ```yaml
 services:
   loki:
@@ -47,6 +48,7 @@ volumes:
     loki:
       name: loki
 ```
+{% endcode %}
 
 ## Configuration
 
