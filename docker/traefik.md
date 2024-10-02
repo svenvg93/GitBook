@@ -2,9 +2,17 @@
 
 Traefik is the leading open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic and full-featured. This guide offers a detailed tutorial on setting up Traefik with Let's Encrypt, covering configuration, SSL certificate automation, and secure deployment to ensure encrypted traffic and seamless, scalable web services.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server \* Cloudflare Account \* Cloudflare registered/managed Domain Name \* Port 80 and 443 forwared to your docker host
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details> \* Cloudflare Account \* Cloudflare registered/managed Domain Name \* Port 80 and 443 forwared to your docker host
 
 ## Cloudflare API Key
 

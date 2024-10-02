@@ -2,9 +2,17 @@
 
 Prometheus exporter for hardware and OS metrics exposed by \*NIX kernels. This guide provides step-by-step instructions on setting up Node Exporter, covering installation, configuration, and integration with Prometheus for detailed monitoring of Linux system metrics.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details>
 
 ## Directories
 

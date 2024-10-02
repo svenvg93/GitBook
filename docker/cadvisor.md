@@ -2,9 +2,17 @@
 
 cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. Discover how to set up and use cAdvisor with this guide, featuring step-by-step instructions on installation, configuration, and monitoring container performance metrics for optimized Docker environments.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details>
 
 ## Directories
 

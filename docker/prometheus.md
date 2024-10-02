@@ -2,9 +2,17 @@
 
 Prometheus is an open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach. This guide walks you through installing and setting up Prometheus
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details>
 
 ## Directories
 

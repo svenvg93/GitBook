@@ -2,9 +2,17 @@
 
 Cloudflare Tunnel is tunneling software that secures and encrypts application traffic, hiding server IP addresses and blocking direct attacks, allowing you to focus on delivering great applications. Unlock the secrets of Cloudflare Tunnel with this all-inclusive guide! Learn how to configure, encrypt traffic, and securely deploy your setup to shield web server IP addresses and create rock-solid, attack-resistant web services.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server \* Cloudflare Account \* Cloudflare registered/managed Domain Name
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details> \* Cloudflare Account \* Cloudflare registered/managed Domain Name
 
 ## Create Cloudflare Tunnel
 

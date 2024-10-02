@@ -2,9 +2,17 @@
 
 This guide offers a detailed tutorial on setting up and using Grafana Alloy, covering configuration, data integration, and visualization to enable powerful, unified insights and monitoring across your systems.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details>
 
 ## Directories
 

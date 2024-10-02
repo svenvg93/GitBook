@@ -2,9 +2,17 @@
 
 Grafana Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus. This guide provides a detailed walkthrough for setting up Loki, covering installation, configuration, and integration with Grafana to streamline log aggregation and visualization.
 
-!!! note "Your mileage may vary" The step below might need adjustment to work in your environment!
+{% hint style="info" %}
+The step below might need adjustment to work in your environment!
+{% endhint %}
 
-??? tip "Prerequisites" \* Docker installed on your server
+<details>
+
+<summary>Prerequisites</summary>
+
+* Docker installed on your server
+
+</details>
 
 ## Directories
 
