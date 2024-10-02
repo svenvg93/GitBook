@@ -1,6 +1,6 @@
 # Prometheus
 
-Prometheus is an open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach. This guide walks you through installing and setting up Prometheus
+Prometheus is an open-source monitoring system with a flexible query language, an efficient time series database, and a modern alerting approach. This guide walks you through installing and setting up Prometheus using Docker.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -16,18 +16,19 @@ The step below might need adjustment to work in your environment!
 
 ## Directories
 
-Create a `prometheus` folder, which will hold the needed files.
+First, create a prometheus folder to store the necessary configuration files:
 
 ```shell
 mkdir prometheus
 cd prometheus
 ```
 
-## Docker
+## Docker Compose Setup
 
-Make the docker compose file containing all information to start the container.
+Create a docker-compose.yml file containing the configuration needed to start the Prometheus container:
 
-```yaml
+{% code title="docker-compose.yml" %}
+```yaml 
 services:
   prometheus:
     image: prom/prometheus
@@ -55,8 +56,11 @@ volumes:
 
 ```
 
-Create the Prometheus configuration file, `prometheus.yml`, to define how Prometheus should scrape and store metrics. This step is crucial for ensuring that Prometheus collects the right data and operates according.
+## Create Prometheus Configuration File
 
+Create a file named prometheus.yml in the prometheus directory. This file will define how Prometheus scrapes and stores metrics:
+
+{% code title="prometheus.yml" %}
 ```yaml
 global:
   scrape_interval:     15s
@@ -71,33 +75,37 @@ scrape_configs:
 
 ## Start Prometheus
 
+Use the following command to start the Prometheus container:
+
 ```shell
 docker compose up -d
 ```
+Once the container is running, access the Prometheus web UI at:
 
-Go to `http://<Host IP>:9090`, to see the Prometheus WebGui.
+`http://<Host IP>:9090`
 
-## Grafana Datasource
+## Adding Prometheus as a Grafana Datasource
 
-You can to add Prometheus as a data soure to Grafana to see the data collected. This can be done via the Grafana WebGui or via Grafana Provisioning.
+Prometheus can be integrated into Grafana to visualize collected data. You can set up the Prometheus datasource through the Grafana web interface or through provisioning.
 
 ### WebGui
 
-1. Click **Connections** in the left-side menu.
-2. Search for **Prometheus**
-3. Click **Add new Datasource**
-4. Enter the name **prometheus**
-5. Fill in the Prometheus server URL `http://<prometheus-ip>:9090`
+1.	Go to Connections in the left-side menu.
+2.	Search for Prometheus.
+3.	Click Add new Datasource.
+4.	Enter prometheus as the name.
+5.	Set the URL to http://<prometheus-ip>:9090.
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
-### Provisioning
+### Using Grafana Provisioning
 
-Add the following to your `datasource.yml` for Grafana.
+To automate the process, add the following configuration to your `datasource.yml` file in Grafana’s provisioning directory:
 
+{% code title="datasource.yml" %}
 ```yaml
-apiVersion: 1 # Optional is this is your first datasource
-datasources: # Optional is this is your first datasource
+apiVersion: 1
+datasources:
   - name: prometheus
     type: prometheus
     access: proxy
@@ -110,8 +118,9 @@ datasources: # Optional is this is your first datasource
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
-Restart Grafana
+### Restart Grafana
 
+If you used provisioning to set up the datasource, restart the Grafana container:
 ```
 docker restart grafana
 ```

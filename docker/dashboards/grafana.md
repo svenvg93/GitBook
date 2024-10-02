@@ -23,7 +23,7 @@ mkdir grafana
 cd grafana
 ```
 
-## Docker
+## Docker Compose Setup
 
 Make the docker compose file containing all information to start the container.
 
@@ -84,13 +84,11 @@ Create a `.env` file to store your settings:
 
 ### Provisioning
 
-Grafana can automatically provision datasources and dashboards, so you don't have to recreate them every time you rebuild your Grafana instance.
+Grafana can automatically provision datasources and dashboards, so you won’t need to recreate them each time you rebuild your Grafana instance.
 
-#### Directories
+### Directory Setup
 
-Grafana expects the **dashboards** and **datasource** files to be in a certain directory.
-
-Make sure your in the same directory as where your `docker-compose.yml` for grafana is.
+Grafana expects the dashboards and datasource files to be located in specific directories. Ensure you are in the same directory as your `docker-compose.yml` file for Grafana, and then create the necessary directories:
 
 ```bash
 mkdir -p provisioning/dashboards provisioning/datasources
@@ -150,5 +148,4 @@ providers: # Only needed at the beginning of your file
 {% endcode %}
 
 Place the Dashboard **json** files in **provisioning/dashboards**.
-
 Make sure the json files have the correct datasource set matching your grafana datasources
