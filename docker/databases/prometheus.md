@@ -25,7 +25,7 @@ cd prometheus
 
 ## Docker Compose Setup
 
-Create a docker-compose.yml file containing the configuration needed to start the Prometheus container:
+Create a `docker-compose.yml` file containing the configuration needed to start the Prometheus container:
 
 {% code title="docker-compose.yml" %}
 ```yaml

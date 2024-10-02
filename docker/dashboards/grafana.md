@@ -1,6 +1,6 @@
 # Grafana
 
-Grafana is the open source analytics & monitoring solution for every database. This guide walks you through getting started with Grafana.
+Grafana is an open-source analytics and monitoring solution compatible with various databases. This guide walks you through the initial setup of Grafana using Docker and covers optional configurations for automated provisioning.
 
 {% hint style="info" %}
 The step below might need adjustment to work in your environment!
@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-Create a `grafana` folder, which will hold the needed files.
+Create a `grafana` folder to store the configuration files:
 
 ```shell
 mkdir grafana
@@ -25,7 +25,7 @@ cd grafana
 
 ## Docker Compose Setup
 
-Make the docker compose file containing all information to start the container.
+Create a `docker-compose.yml` file in the grafana directory with the following content:
 
 {% code title="docker-compose.yml" %}
 ```yaml
@@ -55,48 +55,32 @@ volumes:
 
 ## Start Grafana
 
+Start the Grafana container using the following command:
+
 ```shellell
 docker compose up -d
 ```
+Access Grafana at `http://<Host IP>:3000`, and log in using the default credentials:
 
-Go to `http://<Host IP>:3000` , login with `admin`/`admin`.
+	•	Username: admin
+	•	Password: admin
 
-## Optional
-
-You can configure Grafana using environment variables, allowing you to avoid reconfiguration every time you rebuild your Grafana instance.
-
-### Configuration
-
-Add the following lines to the environment section of your `docker-compose.yml` file:
-
-{% code title="docker-compose.yml" %}
-```
-GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER}
-GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
-```
-{% endcode %}
-
-Create a `.env` file to store your settings:
-
-<pre class="language-bash" data-title=".env"><code class="lang-bash">GF_SECURITY_ADMIN_USER=YourUsername
-<strong>GF_SECURITY_ADMIN_PASSWORD=YourPassword
-</strong></code></pre>
 
 ### Provisioning
 
 Grafana can automatically provision datasources and dashboards, so you won’t need to recreate them each time you rebuild your Grafana instance.
 
-### Directory Setup
+### Create Provisioning Directories
 
-Grafana expects the dashboards and datasource files to be located in specific directories. Ensure you are in the same directory as your `docker-compose.yml` file for Grafana, and then create the necessary directories:
+Create the required directories for provisioning files in the same directory as your `docker-compose.yml` file:
 
 ```bash
 mkdir -p provisioning/dashboards provisioning/datasources
 ```
 
-#### Docker Volumes
+#### Update Docker Volumes
 
-Add the following line in the `volume` section of your `docker-compose.yml`
+Add the following line in the `volumes` section of your `docker-compose.yml` file:
 
 {% code title="docker-compose.yml" %}
 ```yaml
@@ -104,11 +88,9 @@ Add the following line in the `volume` section of your `docker-compose.yml`
 ```
 {% endcode %}
 
-#### Datasource
+#### Create a Datasource Configuration File
 
-Make a `datasource.yml` file in the **provisioning/datasources** directory.
-
-This example adds Prometheus as datasource.
+Create a file named `datasource.yml` in the `provisioning/datasources` directory. This example sets up Prometheus as a datasource:
 
 {% code title="datasource.yml" %}
 ```yaml
@@ -127,9 +109,9 @@ datasources: # Only needed at the beginning of your file
 
 > Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
-#### Dashboards
+#### Create a Dashboard Configuration File
 
-Make a `dashboard.yml` file in the **provisioning/dashboards** directory.
+Create a `dashboard.yml` file in the `provisioning/dashboards` directory:
 
 {% code title="dashboard.yml" %}
 ```yaml
@@ -147,5 +129,14 @@ providers: # Only needed at the beginning of your file
 ```
 {% endcode %}
 
-Place the Dashboard **json** files in **provisioning/dashboards**.
-Make sure the json files have the correct datasource set matching your grafana datasources
+#### Add Dashboard JSON Files
+
+Place your dashboard JSON files in the `provisioning/dashboards` directory. Ensure that each dashboard JSON file references the correct datasource matching your Grafana configuration.
+
+#### Restart Grafana to Apply Changes
+
+If you’ve added or updated the provisioning files, restart the Grafana container to apply the changes:
+
+```
+docker restart grafana
+```
