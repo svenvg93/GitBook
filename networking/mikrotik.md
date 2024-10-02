@@ -6,7 +6,7 @@ Learn how to set up your MikroTik router covering initial configuration, secure 
 
 <summary>Prerequisites</summary>
 
-* Console access to the MikroTik&#x20;
+* Console access to the MikroTik
 * No Configuration on the Mikrotik
 
 </details>
@@ -92,16 +92,20 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 
 {% tabs %}
 {% tab title="DHCP with VLAN" %}
-```bash 
+```bash
 /interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> 
 /ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes 
 /interface list add name=WAN 
 /interface list member add interface=internet list=WAN
 ```
+
+> Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+
+
 {% endtab %}
 
 {% tab title="DHCP" %}
-```bash 
+```bash
 /interface ethernet set ether1 name=internet 
 /ip dhcp-client add interface=internet add-default-route=yes disabled=no use-peer-ntp=no 
 /interface list add name=WAN 
@@ -110,7 +114,7 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 {% endtab %}
 
 {% tab title="PPPoE with VLAN" %}
-```bash 
+```bash
 /interface add interface=ether1 name=vlan_int vlan-id=<Enter ISP VLAN ID> 
 /interface pppoe-client add add-default-route=yes disabled=no interface=vlan_int name=internet use-peer-dns=yes user=<username> password=<password>
 /interface list add name=WAN 
@@ -119,7 +123,7 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 {% endtab %}
 
 {% tab title="PPPoE" %}
-```bash 
+```bash
 /interface pppoe-client add add-default-route=yes disabled=no interface=ether1 name=internet use-peer-dns=yes user=<username> password=<password> 
 /interface list add name=WAN 
 /interface list member add interface=internet list=WAN`
@@ -127,7 +131,7 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 {% endtab %}
 
 {% tab title="Static IP" %}
-```bash 
+```bash
 /interface ethernet set ether1 name=internet 
 /ip address add address=<Your IP Address> interface=internet 
 /ip route add gateway=<Your IP Gateway> 
@@ -137,7 +141,6 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 ```
 {% endtab %}
 {% endtabs %}
-
 
 ### NAT
 
@@ -211,7 +214,11 @@ add action=accept chain=input comment="Allow WireGuard traffic" dst-port=13231 p
 add action=accept chain=forward comment="Allow WireGuard to LAN" in-interface=wireguard1 out-interface=bridge1
 ```
 
-!!! tip Make sure the rules are before the `DROP` rule of the belonging chain.
+{% hint style="warning" %}
+Make sure the rules are before the `DROP` rule of the belonging chain.
+{% endhint %}
+
+
 
 ### Client Configuration
 
@@ -222,7 +229,9 @@ Create a client in order to connect to the WireGuard tunnel
 add allowed-address=192.168.2.2/32 interface=wireguard1 private-key=auto
 ```
 
-!!! tip Ensure that each client has a unique `allowed-address`.
+> Ensure that each client has a unique `allowed-address`.
+
+
 
 ## Port forwarding
 
