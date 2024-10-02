@@ -89,7 +89,7 @@ You can to add Prometheus as a data soure to Grafana to see the data collected. 
 4. Enter the name **prometheus**
 5. Fill in the Prometheus server URL `http://<prometheus-ip>:9090`
 
-!!! info Replace `<prometheus-ip>` with the IP Address of your prometheus server.
+> Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
 ### Provisioning
 
@@ -108,7 +108,7 @@ datasources: # Optional is this is your first datasource
     editable: false
 ```
 
-!!! info Replace `<prometheus-ip>` with the IP Address of your prometheus server.
+> Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
 Restart Grafana
 

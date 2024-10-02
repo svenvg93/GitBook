@@ -72,7 +72,7 @@ scrape_configs: # Optional is this is your first config
       - targets: ['<cadvisor>:8080']
 ```
 
-!!! info Replace `<cadvisor>` with the IP Address of your cAdvisor instance.
+> Replace `<cadvisor>` with the IP Address of your cAdvisor instance.
 
 ## Grafana Dashboard
 

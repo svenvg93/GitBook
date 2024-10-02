@@ -80,7 +80,7 @@ loki.source.file "authlog" {
 
 ```
 
-!!! info Replace `<loki-ip>` with the IP Address of your Loki server.
+> Replace `<loki-ip>` with the IP Address of your Loki server.
 
 ### Start Alloy
 

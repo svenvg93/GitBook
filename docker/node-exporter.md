@@ -73,7 +73,7 @@ scrape_configs: # Optional is this is your first config
         action: "replace"
 ```
 
-!!! info \* Replace `<Server IP Address>` with the IP Address of your server. \* Replace `<hostname>` with the hostname of the server monitored
+> \* Replace `<Server IP Address>` with the IP Address of your server. \* Replace `<hostname>` with the hostname of the server monitored
 
 ## Grafana Dashboard
 

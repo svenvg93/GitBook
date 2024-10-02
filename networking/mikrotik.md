@@ -119,8 +119,8 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP&#x20;
-> * Change `<username>` to the needed username for your PPPoE Connection&#x20;
+> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+> * Change `<username>` to the needed username for your PPPoE Connection
 > * Change `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
 
@@ -145,8 +145,8 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Change `<Your IP Address>` to IP Address given by your ISP&#x20;
-> * Change `<Your IP Gateway>` to IP Gateway given by your ISP&#x20;
+> * Change `<Your IP Address>` to IP Address given by your ISP
+> * Change `<Your IP Gateway>` to IP Gateway given by your ISP
 > * Change `<Your DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
 {% endtab %}
 {% endtabs %}

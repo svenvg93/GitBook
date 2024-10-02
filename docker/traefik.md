@@ -148,7 +148,7 @@ labels:
   - "traefik.http.routers.<yourservice>.tls.certresolver=letencrypt"
 ```
 
-!!! info \* Change `<yourservice>` to a unique name of your service. \* Change `test.example.com` to your domain name to use
+> \* Change `<yourservice>` to a unique name of your service. \* Change `test.example.com` to your domain name to use
 
 ## Monitoring
 
@@ -182,7 +182,7 @@ scrape_configs: # Optional when its the first scrape job
       - targets: ['<traefik>:8080']
 ```
 
-!!! info Replace `<traefik>` with the IP Address of your Traefik server.
+> Replace `<traefik>` with the IP Address of your Traefik server.
 
 #### Grafana Dashboard
 

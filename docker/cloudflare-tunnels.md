@@ -133,7 +133,7 @@ scrape_configs: # Optional when its the first scrape job
       - targets: ['<cloudflared>:9100']
 ```
 
-!!! info Replace `<cloudflared>` with the IP Address of your Cloudflared instance.
+> Replace `<cloudflared>` with the IP Address of your Cloudflared instance.
 
 To apply all the configuration changes we made we need to Prometheus.
 
@@ -192,7 +192,7 @@ loki.source.file "cloudflared" {
 }
 ```
 
-!!! info \* Adjust `forward_to` according to your configuration. \* Make sure that the needed volumes are mounted inside your Alloy container.
+> \* Adjust `forward_to` according to your configuration. \* Make sure that the needed volumes are mounted inside your Alloy container.
 
 #### Promtail Configuration
 
@@ -209,7 +209,7 @@ scrape_configs: # Optional when its the first scrape job
       __path__: /logs/cloudflared/tunnel.log
 ```
 
-!!! info Make sure that the needed volumes are mounted inside your Promtail container.
+> Make sure that the needed volumes are mounted inside your Promtail container.
 
 Restart Promtail to apply configuration.
 

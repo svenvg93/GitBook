@@ -141,7 +141,7 @@ datasources: # Optional is this is your first datasource
       maxLines: 1000
 ```
 
-!!! info Replace `<loki-ip>` with the IP Address of your Loki server.
+> Replace `<loki-ip>` with the IP Address of your Loki server.
 
 Restart Grafana
 

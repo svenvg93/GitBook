@@ -120,7 +120,7 @@ datasources: # Only needed at the beginning of your file
     editable: false
 ```
 
-!!! info Replace `<prometheus-ip>` with the IP Address of your prometheus server.
+> Replace `<prometheus-ip>` with the IP Address of your prometheus server.
 
 #### Dashboards
 
