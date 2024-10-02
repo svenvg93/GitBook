@@ -18,7 +18,7 @@ layout:
     visible: false
 ---
 
-# 🏠 Introduction
+# Introduction
 
 This site serves as a comprehensive guide for building, maintaining, and optimizing your personal HomeLab setup. Whether you're a beginner looking to set up your first server or a seasoned enthusiast exploring advanced configurations, this resource will walk you through various aspects of HomeLab infrastructure, from hardware selection and networking to software automation and security best practices.
 
