@@ -99,7 +99,7 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN
 ```
 
-> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+> * Replace `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
 {% endtab %}
 
 {% tab title="DHCP" %}
@@ -119,9 +119,9 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Change `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
-> * Change `<username>` to the needed username for your PPPoE Connection
-> * Change `<password>` to the needed password for your PPPoE Connection
+> * Replace `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+> * Replace `<username>` to the needed username for your PPPoE Connection
+> * Replace `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
 
 {% tab title="PPPoE" %}
@@ -131,8 +131,8 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Change `<username>` to the needed username for your PPPoE Connection
-> * Change `<password>` to the needed password for your PPPoE Connection
+> * Replace `<username>` to the needed username for your PPPoE Connection
+> * Replace `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
 
 {% tab title="Static IP" %}
@@ -145,9 +145,9 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Change `<Your IP Address>` to IP Address given by your ISP
-> * Change `<Your IP Gateway>` to IP Gateway given by your ISP
-> * Change `<Your DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
+> * Replace `<Your IP Address>` to IP Address given by your ISP
+> * Replace `<Your IP Gateway>` to IP Gateway given by your ISP
+> * Replace `<Your DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
 {% endtab %}
 {% endtabs %}
 
@@ -168,10 +168,11 @@ Configure the correct timezone to ensure the router displays the accurate time.
 /system ntp client
 set enabled=yes
 /system ntp client servers
-add address=0.pool.ntp.org
+add address=time.cloudflare.com
 /system clock
-set time-zone-name=Europe/Amsterdam # Change this to your timezone
+set time-zone-name=<Your Timezone>
 ```
+> Replace `<Your Timezone>` this to your timezone
 
 ### System
 
@@ -188,6 +189,8 @@ set name=<Your hostname>
 /user add name=<Username> password=<Password> group=full
 /user disable admin
 ```
+> * Replace `<Username>` to your new username
+> * Replace `<Password>` to your new password
 
 ## WireGuard
 
@@ -246,6 +249,8 @@ Port forwarding is a network technique that redirects incoming traffic from a sp
 /ip firewall nat
 add action=dst-nat chain=dstnat comment="Your Comment" dst-port=<Port to forward> in-interface-list=WAN protocol=tcp to-addresses=<IP To Forward to>
 ```
+> * Replace `<Port to forward>` to the port you want to forward traffic to.
+> * Replace `<IP To Forward to>` to the local IP Address you want to forward the traffic to.
 
 ## Static DHCP
 
@@ -255,3 +260,6 @@ Static DHCP, also known as DHCP reservation, is a network configuration where a 
 /ip dhcp-server lease
 add address=<IP Adress> mac-address=<Client Mac Address> server=dhcp1
 ```
+> * Replace <IP Address> with the IP address you want to reserve.
+> * Replace <Client MAC Address> with the MAC address you want to assign to this IP address.
+
