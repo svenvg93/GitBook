@@ -88,7 +88,7 @@ You don’t need to add a public hostname for Cloudflared itself.
 1. Fill in the following fields:
    1. Subdomain: e.g., test
    2. Domain: Select your domain name from the list.
-   3. Type: Select HTTP.
+   3. Type: Select e.g., HTTP.
    4. URL: If the application is on the same Docker network, use the container name. Otherwise, use the IP address and specify the port if it is not the default HTTP port (e.g., :).
 2. Click Save Tunnel.
 
@@ -131,11 +131,7 @@ scrape_configs: # Optional when its the first scrape job
 
 > Replace `<cloudflared>` with the IP Address of your Cloudflared instance.
 
-Restart Prometheus to apply the changes:
-
-```bash
-docker restart prometheus
-```
+Restart Prometheus to apply the changes.
 
 ## Grafana Dashboard
 

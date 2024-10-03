@@ -52,7 +52,7 @@ volumes:
 
 ## Create the Loki Configuration File
 
-Create a file named loki-config.yaml to define how Loki handles log ingestion and storage:
+Create a file named `loki-config.yaml` to define how Loki handles log ingestion and storage:
 
 {% code title="loki-config.yaml" %}
 ```yaml

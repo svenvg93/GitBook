@@ -16,7 +16,7 @@ The step below might need adjustment to work in your environment!
 
 ## Create Directories
 
-First, create a prometheus folder to store the necessary configuration files:
+Create a prometheus folder to store the configuration files:
 
 ```shell
 mkdir prometheus
@@ -58,7 +58,7 @@ volumes:
 
 ## Create Prometheus Configuration File
 
-Create a file named prometheus.yml in the prometheus directory. This file will define how Prometheus scrapes and stores metrics:
+Create a file named `prometheus.yml` in the prometheus directory. This file will define how Prometheus scrapes and stores metrics:
 
 {% code title="prometheus.yml" %}
 ```yaml

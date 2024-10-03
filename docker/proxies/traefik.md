@@ -190,7 +190,7 @@ scrape_configs: # Optional when its the first scrape job
 
 > Replace `<traefik>` with the IP Address of your Traefik server.
 
-Restart Prometheus to apply the changes:
+Restart Prometheus to apply the changes.
 
 ## Grafana Dashboard
 

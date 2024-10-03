@@ -93,13 +93,13 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 {% tabs %}
 {% tab title="DHCP with VLAN" %}
 ```bash
-/interface vlan add interface=ether1 name=internet vlan-id=<Enter ISP VLAN ID> 
+/interface vlan add interface=ether1 name=internet vlan-id=<ISP VLAN ID> 
 /ip dhcp-client add interface=internet disabled=no use-peer-ntp=no add-default-route=yes 
 /interface list add name=WAN 
 /interface list member add interface=internet list=WAN
 ```
 
-> * Replace `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+> * Replace `<ISP VLAN ID>` to the needed VLAN ID for your ISP
 {% endtab %}
 
 {% tab title="DHCP" %}
@@ -113,13 +113,13 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 
 {% tab title="PPPoE with VLAN" %}
 ```bash
-/interface add interface=ether1 name=vlan_int vlan-id=<Enter ISP VLAN ID> 
+/interface add interface=ether1 name=vlan_int vlan-id=<ISP VLAN ID> 
 /interface pppoe-client add add-default-route=yes disabled=no interface=vlan_int name=internet use-peer-dns=yes user=<username> password=<password>
 /interface list add name=WAN 
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Replace `<Enter ISP VLAN ID>` to the needed VLAN ID for your ISP
+> * Replace `<ISP VLAN ID>` to the needed VLAN ID for your ISP
 > * Replace `<username>` to the needed username for your PPPoE Connection
 > * Replace `<password>` to the needed password for your PPPoE Connection
 {% endtab %}
@@ -138,16 +138,16 @@ Set up the necessary WAN interface to obtain an IP address from your ISP.
 {% tab title="Static IP" %}
 ```bash
 /interface ethernet set ether1 name=internet 
-/ip address add address=<Your IP Address> interface=internet 
-/ip route add gateway=<Your IP Gateway> 
-/ip dns set servers=<Your DNS Server> 
+/ip address add address=<IP Address> interface=internet 
+/ip route add gateway=<IP Gateway> 
+/ip dns set servers=<DNS Server> 
 /interface list add name=WAN 
 /interface list member add interface=internet list=WAN`
 ```
 
-> * Replace `<Your IP Address>` to IP Address given by your ISP
-> * Replace `<Your IP Gateway>` to IP Gateway given by your ISP
-> * Replace `<Your DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
+> * Replace `<IP Address>` to IP Address given by your ISP
+> * Replace `<IP Gateway>` to IP Gateway given by your ISP
+> * Replace `<DNS Server>` to DNS Servers given by your ISP or any Public DNS you want to use.
 {% endtab %}
 {% endtabs %}
 
